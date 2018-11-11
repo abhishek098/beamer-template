@@ -88,7 +88,16 @@
 	\end{frame}
 	
 	\begin{frame}{Analysis of the effects of the parameters used in DMP}
+		\includegraphics[width=\textwidth]{images/n_bfs_}
+	\end{frame}
 	
+	\begin{frame}
+		\centering
+		\includegraphics[scale=0.45]{images/dt_}
+	\end{frame}
+	
+	\begin{frame}
+		\includegraphics[width=\textwidth]{images/tau_}
 	\end{frame}
 	
 	\begin{frame}{Inverse Kinematic Solver}
@@ -96,7 +105,26 @@
 	\end{frame}
 	
 	\begin{frame}{Whole Body Motion Control}
+		\begin{equation}
+		m_{cap} = \frac{(\sigma_{min} - \sigma_{l})}{(\sigma_{h} - \sigma_{l})}
+		\end{equation}
+
+		\begin{equation}
+		b_{cap} = \frac{(d - d_{l})}{(d_{h} - d_{l})}
+		\end{equation}
+		
+		\begin{equation}
+		v_{ee} = m_{cap}.v
+		\end{equation} 
+		
+		\begin{equation}
+		v_{b} = (1 - m_{cap}).v
+		\end{equation} 
+
+	\end{frame}
 	
+	\begin{frame}{Experimental Evaluations}
+		
 	\end{frame}
 	
 	\begin{frame}{Results}
