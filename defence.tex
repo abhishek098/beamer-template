@@ -89,18 +89,28 @@
 	
 	\begin{frame}
 		\begin{itemize}
-			\item Second order differential equation representing mass spring damped system. 
-			\item Non-linear term \textit{f(x)} modifies the acceleration and characterizes the motion. 
+			\item Second order differential equation representing \textbf{damped mass spring system.} 
+			\item Non-linear term \textit{f(x)} modifies the acceleration and hence characterizes the motion. 
+			\item Phase variable \textbf{x} ensures the synchronization between multiple degrees of freedom.  
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Working of DMP}
-		\includegraphics[width=\textwidth]{images/dmp_no_f}
+		\centering
+		\textbf{2D DMP system with no forcing term}
+		
+		\includegraphics[scale=0.3]{images/dmp_no_f}
 	\end{frame}
+	
 	\begin{frame}
+		\centering
+		\textbf{2D DMP system with forcing term}
+
 		\includegraphics[width=\textwidth]{images/step_f}
 	\end{frame}
+	
 	\begin{frame}
+		\textbf{Forcing functions}
 		\begin{figure}
 			\includegraphics[scale=0.23]{images/f_x}
 			\caption{Forcing term - X}
@@ -110,11 +120,26 @@
 			\includegraphics[scale=0.23]{images/f_y}
 			\caption{Forcing term - Y}
 		\end{figure}
-
 	\end{frame}
 	
 	\begin{frame}{Analysis of the effects of the parameters used in DMP}
 		\includegraphics[width=\textwidth]{images/n_bfs_}
+	\end{frame}
+	
+	\begin{frame}
+		
+		\begin{center}
+			\begin{table}[H]
+				\begin{tabular}{| c | c | c | c | c | c | c | c |}	
+					\hline
+					n\_bfs & 10 & 30 & 50 & 100 & 500 & 2000 & 10000\\       
+					\hline
+					Error & 0.093 & 0.038 & 0.021 & 0.009 & 0.002 & 0.001 & 0.001\\
+					\hline
+				\end{tabular}
+				\caption{Error in mimicking the trajectory}
+			\end{table}\label{_n_bfs_e}
+		\end{center}
 	\end{frame}
 	
 	\begin{frame}
@@ -123,11 +148,49 @@
 	\end{frame}
 	
 	\begin{frame}
+		\begin{center}
+			\begin{table}[H]
+				\centering
+				\begin{tabular}{| c | c | c | c | c | c | c | c |}	
+					\hline
+					Time step size & 0.05 & 0.01 & 0.005 & 0.001 \\       
+					\hline
+					Error & 0.062 & 0.017 & 0.011 & 0.007 \\
+					\hline
+				\end{tabular}
+				\caption{Error in mimicking the trajectory}
+			\end{table}\label{_dt_e}
+		\end{center}
+	\end{frame}
+	
+	
+	\begin{frame}
 		\includegraphics[width=\textwidth]{images/tau_}
 	\end{frame}
 	
+	\begin{frame}
+		\begin{center}
+			\begin{table}[H]
+				\centering
+				\begin{tabular}{| c | c | c | c | c | c | c | c |}	
+					\hline
+					Time scaling factor ($tau$) & 0.1 & 1 & 10 & 12 & 15 \\       
+					\hline
+					Error & 0.007 & 0.007 & 0.010 & 0.036 & 0.292   \\
+					\hline
+				\end{tabular}
+				\caption{Error in mimicking the trajectory}
+			\end{table}\label{_tau_e}
+		\end{center}
+	\end{frame}
+	
 	\begin{frame}{Inverse Kinematic Solver}
-		
+		\begin{itemize}
+			\item Motion is learned in task space. 
+			\item Need of inverse kinematic solver to convert Cartesian velocities to joint velocities. 
+			\item Limitations of manipulators because of having 5 degrees of freedom.
+			\item Weighted Damped Least Square method for calculating joint velocities.
+		\end{itemize}	
 	\end{frame}
 	
 	\begin{frame}{Whole Body Motion Control}
@@ -160,7 +223,11 @@
 	\end{frame}
 	
 	\begin{frame}{Conclusion}
-	
+	\begin{itemize}
+		\item learning from demonstration architecture was developed for robot programming.
+
+		\item We provide an intuitive explanation of the working of the dynamic motion primitives. By observing limitations on the motion of the KUKA YouBot manipulator, we developed the concept of using motion policy encoded in DMP for performing whole body motion control. Developed whole body motion control architecture significantly increased the manipulation capabilities of the mobile manipulators KUKA YouBot and Toyota HSR. Whole body motion control has already been integrated into software stack used on Toyota HSR, where it replaces the MoveIt! framework for motion planning. With all these experiments, we gathered enough insights of the working of DMPs for building a library of DMP and use it for performing robotic tasks in RoboCup@Home scenario.
+	  	\end{itemize}
 	\end{frame}
 
 \end{document}
