@@ -41,15 +41,27 @@
 	
 	\begin{frame}{Motivation}
 		\begin{itemize}
-			\item Humans \textbf{learn} variety of motion and use them in similar situations. 
-			\item Biological motions consist of motion primitives. 
+			\item Humans \textbf{learn} variety of motions and use them in similar situations. 
+			\item Human motions consist of motion primitives. 
 			\item Concept of motion primitives can be adopted for robots. 
 			\item Learned motion primitives can be combined to do complex task. 
-			\item 
+			\item Several approaches are available for learning motion primitives.
 		\end{itemize}
 	\end{frame}
 	
 	
+	\begin{frame}{Advantages of DMP}
+		\begin{itemize}
+			\item It is a model free learning approach.
+			\item Any arbitrary trajectory can be learned in end-effector space as well as in joint space.
+			\item Here learning is linear regression, so it does not need large dataset.
+			One trajectory is sufficient ideally.
+			\item Trajectories can be scaled in space as well as in time.
+			\item Trajectory evolves as robot actually moves along the trajectory. Hence on-line modifications in the trajectory are possible.
+
+		\end{itemize}
+	\end{frame}
+
 	\begin{frame}{Formulation of DMP}
 		\begin{equation}\label{DMP_1}
 		\tau\dot{z} = \alpha_{z}(\beta_{z}(g - y) - z) + f(x)
@@ -68,8 +80,20 @@
 		\begin{equation}\label{canonical}
 		\tau \dot{x} = -\alpha_{x}x
 		\end{equation}
+		
+		[$y, \dot{y}, \ddot{y}$] = kinematic state  \\
+		$g$ = goal value \\
+		$y_{0}$ = initial value
 	\end{frame}
 	
+	
+	\begin{frame}
+		\begin{itemize}
+			\item Second order differential equation representing mass spring damped system. 
+			\item Non-linear term \textit{f(x)} modifies the acceleration and characterizes the motion. 
+		\end{itemize}
+	\end{frame}
+
 	\begin{frame}{Working of DMP}
 		\includegraphics[width=\textwidth]{images/dmp_no_f}
 	\end{frame}
@@ -125,8 +149,10 @@
 
 	\end{frame}
 	
-	\begin{frame}{Experimental Evaluations}
-		
+	\begin{frame}{Experiments}
+		\begin{itemize}
+			\item 
+		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}{Results}
