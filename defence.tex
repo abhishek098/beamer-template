@@ -64,10 +64,10 @@
 
 	\begin{frame}{Formulation of DMP}
 		\begin{equation}\label{DMP_1}
-		\tau\dot{z} = \alpha_{z}(\beta_{z}(g - y) - z) + f(x)
+		\color{blue}\tau\dot{z} = \alpha_{z}(\beta_{z}(g - y) - z) + \color{red}f(x) \color{black}
 		\end{equation}
 		\begin{equation}\label{DMP_2}
-		\tau \dot{y} = z
+		\color{blue}\tau \dot{y} = z \color{black}
 		\end{equation}
 		\begin{equation}\label{forcing_term}
 		f(x) = \frac{\sum_{i=1}^{N}\psi_{i}(x)w_{i}}{\sum_{i=1}^{N}\psi_{i}(x)}x(g - y_{0})
@@ -80,17 +80,15 @@
 		\begin{equation}\label{canonical}
 		\tau \dot{x} = -\alpha_{x}x
 		\end{equation}
-		
-		[$y, \dot{y}, \ddot{y}$] = kinematic state  \\
-		$g$ = goal value \\
-		$y_{0}$ = initial value
 	\end{frame}
 	
 	
 	\begin{frame}
 		\begin{itemize}
 			\item Second order differential equation representing \textbf{damped mass spring system.} 
-			\item Non-linear term \textit{f(x)} modifies the acceleration and hence characterizes the motion. 
+			\item Non-linear term \color{red} \textit{f(x)} \color{black} modifies the acceleration and hence characterizes the motion. 
+			\item \color{red} \textit{f(x)} \color{black} is normalized weighted sum of equally spaced Gaussian functions. 
+			\item Learning a motion primitive means learning the wights 	\textbf{\textit{$w_{i}$}}.
 			\item Phase variable \textbf{x} ensures the synchronization between multiple degrees of freedom.  
 		\end{itemize}
 	\end{frame}
@@ -98,7 +96,6 @@
 	\begin{frame}{Working of DMP}
 		\centering
 		\textbf{2D DMP system with no forcing term}
-		
 		\includegraphics[scale=0.3]{images/dmp_no_f}
 	\end{frame}
 	
@@ -186,9 +183,9 @@
 	
 	\begin{frame}{Inverse Kinematic Solver}
 		\begin{itemize}
-			\item Motion is learned in task space. 
-			\item Need of inverse kinematic solver to convert Cartesian velocities to joint velocities. 
-			\item Limitations of manipulators because of having 5 degrees of freedom.
+			\item Motion is learned in Cartesian space. 
+			\item Need of inverse kinematic solver to convert Cartesian velocity commands to joint velocity commands. 
+			\item Limitations of manipulators due to 5 degrees of freedom.
 			\item Weighted Damped Least Square method for calculating joint velocities.
 		\end{itemize}	
 	\end{frame}
@@ -197,36 +194,141 @@
 		\begin{equation}
 		m_{cap} = \frac{(\sigma_{min} - \sigma_{l})}{(\sigma_{h} - \sigma_{l})}
 		\end{equation}
-
+		
+		
 		\begin{equation}
 		b_{cap} = \frac{(d - d_{l})}{(d_{h} - d_{l})}
 		\end{equation}
 		
+		
 		\begin{equation}
-		v_{ee} = m_{cap}.v
+		v_{ee} = \frac{m_{cap}}{m_{cap} + b_{cap}}.v
 		\end{equation} 
 		
 		\begin{equation}
-		v_{b} = (1 - m_{cap}).v
+		v_{b} = \frac{b_{cap}}{m_{cap} + b_{cap}}.v
 		\end{equation} 
+	\end{frame}
+	\begin{frame}
+		Where, \\
+		$\sigma_{min}$ is the smallest sigma value, \\
+		$\sigma_{l}$ is the lower limit on $\sigma_{min}$, \\
+		$\sigma_{h}$ is the upper limit on $\sigma_{min}$, \\
+		$d$ is the distance of the obstacle from base, \\
+		$d_{l}$ is the lower limit on $d$, \\
+		$d_{h}$ is the upper limit on $d$, \\
+		$v$ is the desired velocity of end-effector in global frame of reference, \\ 
+		$v_{ee}$ is the velocity command for end-effector of the manipulator in global frame of reference, \\
+		$v_{b}$ is the velocity command for mobile base in global frame of reference.
 
 	\end{frame}
 	
 	\begin{frame}{Experiments}
 		\begin{itemize}
-			\item 
+			\item Experiments were conducted on Kuka YouBot and Toyota HSR to evaluate :
+			\begin{itemize}
+				\item \textbf{\textit{Learning from Demonstration}} framework
+				\item \textbf{\textit{Whole body motion control}}
+			\end{itemize}  
+			\item Experiments on Kuka YouBot :
+			\begin{itemize}
+				\item 3 inverse parabolic trajectories 
+				\item 1 step function like trajectory 
+				\item 1 square function trajectory 
+				\item 1 inverse parabolic trajectory (whole body motion)
+				\item 2 square wave trajectories (whole body motion)
+			\end{itemize}
+			\item Experiments on Toyota HSR:
+			\begin{itemize}
+				\item Sequencing 2 DMPs for pick and place task
+				\item Grasping an object
+			\end{itemize}
 		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}{Results}
-	
+		\centering
+		\text{Inverse Parabolic Trajectory}
+		\includegraphics[scale=0.4]{images/1/inv_par_3.png}
 	\end{frame}
 	
+	\begin{frame}{Results}
+		\centering
+		Error in trajectory execution
+		\includegraphics[scale=0.4]{images/1/inv_par_3_e.png}
+	\end{frame}
+	
+	\begin{frame}{Results}
+		Step Function Trajectory
+		\centering
+		\includegraphics[scale=0.4]{images/1/step.png}
+	\end{frame}
+	\begin{frame}{Results}
+		\centering
+		Error in trajectory execution
+		\includegraphics[scale=0.4]{images/1/step_e.png}
+	\end{frame}
+		
+	\begin{frame}{Results}
+		\centering
+		Square Wave trajectory
+		\includegraphics[scale=0.4]{images/1/square.png}
+	\end{frame}
+	\begin{frame}{Results}
+		\centering
+		Error in trajectory execution
+		\includegraphics[scale=0.4]{images/1/square_e.png}
+	\end{frame}
+		
+	\begin{frame}{Results}
+		\centering
+		Inverse Parabolic Trajectory with whole body motion control
+		\includegraphics[scale=0.4]{images/2/inv_par.png}
+	\end{frame}
+	
+	\begin{frame}{Results}
+		\centering
+		Error in trajectory execution
+		\includegraphics[scale=0.4]{images/2/inv_par_e.png}
+	\end{frame}
+	
+	\begin{frame}{Results}
+		\centering
+		Square Wave Trajectory with whole body motion control
+		\includegraphics[scale=0.4]{images/2/square.png}
+	\end{frame}
+	\begin{frame}{Results}
+		\centering
+		Error in trajectory execution
+		\includegraphics[scale=0.4]{images/2/square_e.png}
+	\end{frame}
+	
+	
+	\begin{frame}{Results}
+		\centering
+		Sequencing Two DMPs for object pick and place
+		\includegraphics[scale=0.4]{images/HSR_3/sequence.png}
+	\end{frame}
+	\begin{frame}{Results}
+		\centering
+		Error in trajectory execution
+		\includegraphics[scale=0.4]{images/HSR_3/sequence_0_e.png}
+	\end{frame}
+
+	\begin{frame}{Results}
+		\centering
+		Error in trajectory execution
+		\includegraphics[scale=0.4]{images/HSR_3/sequence_1_e.png}
+	\end{frame}
+
 	\begin{frame}{Conclusion}
 	\begin{itemize}
-		\item learning from demonstration architecture was developed for robot programming.
-
-		\item We provide an intuitive explanation of the working of the dynamic motion primitives. By observing limitations on the motion of the KUKA YouBot manipulator, we developed the concept of using motion policy encoded in DMP for performing whole body motion control. Developed whole body motion control architecture significantly increased the manipulation capabilities of the mobile manipulators KUKA YouBot and Toyota HSR. Whole body motion control has already been integrated into software stack used on Toyota HSR, where it replaces the MoveIt! framework for motion planning. With all these experiments, we gathered enough insights of the working of DMPs for building a library of DMP and use it for performing robotic tasks in RoboCup@Home scenario.
+		\item Development of \textit{Learning from Demonstration} framework for robot programming using DMPs.
+		\item Analysis of the effects of the parameters used in DMPs on trajectory approximation. 
+		\item Evaluation of \textit{Learning from Demonstration} framework on KUKA YouBot and Toyota HSR. 
+		\item Development and evaluation of whole body motion control architecture.
+		\item Gathering insights of working of DMPs as well as their capabilities and limitations. 
+		\item Integration into current software solution for manipulation for Toyota HSR (replacing MoveIt!).
 	  	\end{itemize}
 	\end{frame}
 
