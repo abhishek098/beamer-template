@@ -17,6 +17,7 @@
 \usepackage{url}       % `\url
 \usepackage{listings}  % Code listings
 \usepackage[T1]{fontenc}
+\usepackage{subcaption} 
 
 
 \usepackage{theme/beamerthemehbrs}
@@ -80,6 +81,7 @@
 		\begin{equation}\label{canonical}
 		\tau \dot{x} = -\alpha_{x}x
 		\end{equation}
+		\footnote{Formulation of DMP taken from \cite{ijspeert2013dynamical}}
 	\end{frame}
 	
 	
@@ -100,33 +102,40 @@
 	\end{frame}
 	
 	\begin{frame}
-		\centering
-		\textbf{2D DMP system with forcing term}
+		\begin{figure}
+			\begin{subfigure}[b]{0.38\linewidth}
+				\includegraphics[scale=0.15]{images/step_f.png}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.60\linewidth}
+				\begin{figure}
+					\begin{subfigure}[b]{0.5\linewidth}
+						\includegraphics[scale=0.15]{images/f_x.png}
+					\end{subfigure}
+					\begin{subfigure}[b]{0.5\linewidth}
+						\includegraphics[scale=0.15]{images/f_y.png}
+					\end{subfigure}	
+				\end{figure}
 
-		\includegraphics[width=\textwidth]{images/step_f}
+			\end{subfigure}	
+		\end{figure}
 	\end{frame}
 	
-	\begin{frame}
-		\textbf{Forcing functions}
-		\begin{figure}
-			\includegraphics[scale=0.23]{images/f_x}
-			\caption{Forcing term - X}
-		\end{figure}
 
-		\begin{figure}
-			\includegraphics[scale=0.23]{images/f_y}
-			\caption{Forcing term - Y}
-		\end{figure}
-	\end{frame}
-	
 	\begin{frame}{Analysis of the effects of the parameters used in DMP}
-		\includegraphics[width=\textwidth]{images/n_bfs_}
+		Effect of the number of basis functions on the trajectory approximation
+		\begin{center}
+			\includegraphics[scale=0.25]{images/n_bfs_}
+		\end{center}
+		\begin{equation}
+		f(x) = \frac{\sum_{i=1}^{\color{red}N\color{black}}\psi_{i}(x)w_{i}}{\sum_{i=1}^{\color{red}N\color{black}}\psi_{i}(x)}x(g - y_{0})
+		\end{equation}
 	\end{frame}
 	
 	\begin{frame}
-		
+		\textbf{Error in mimicking the trajectory}
 		\begin{center}
 			\begin{table}[H]
+				
 				\begin{tabular}{| c | c | c | c | c | c | c | c |}	
 					\hline
 					n\_bfs & 10 & 30 & 50 & 100 & 500 & 2000 & 10000\\       
@@ -137,14 +146,21 @@
 				\caption{Error in mimicking the trajectory}
 			\end{table}\label{_n_bfs_e}
 		\end{center}
+		\begin{itemize}
+			\item Higher number of basis functions results in better approximation
+			\item More number of basis functions learn more noise
+		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}
-		\centering
-		\includegraphics[scale=0.45]{images/dt_}
+		Effect of the time step on the trajectory approximation
+		\begin{center}
+			\includegraphics[scale=0.45]{images/dt_}
+		\end{center}
 	\end{frame}
 	
 	\begin{frame}
+		Effect of the time step on the trajectory approximation
 		\begin{center}
 			\begin{table}[H]
 				\centering
@@ -162,10 +178,21 @@
 	
 	
 	\begin{frame}
-		\includegraphics[width=\textwidth]{images/tau_}
+		Effect of the time scaling factor on the trajectory approximation
+		\begin{center}
+		\includegraphics[scale=0.24]{images/tau_}
+		\end{center}
+		\begin{equation}
+		\color{red}\tau \color{black}\dot{z} = \alpha_{z}(\beta_{z}(g - y) - z) + f(x)
+		\end{equation}
+		\begin{equation}
+		\color{red}\tau \color{black} \dot{y} = z 
+		\end{equation}
+
 	\end{frame}
 	
 	\begin{frame}
+		Effect of the time scaling factor on the trajectory approximation
 		\begin{center}
 			\begin{table}[H]
 				\centering
@@ -247,62 +274,65 @@
 	\end{frame}
 	
 	\begin{frame}{Results}
-		\centering
 		\text{Inverse Parabolic Trajectory}
-		\includegraphics[scale=0.4]{images/1/inv_par_3.png}
-	\end{frame}
-	
-	\begin{frame}{Results}
-		\centering
-		Error in trajectory execution
-		\includegraphics[scale=0.4]{images/1/inv_par_3_e.png}
+		\begin{figure}
+			\begin{subfigure}[b]{0.49\linewidth}
+				\includegraphics[scale=0.25]{images/1/inv_par_3.png}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.49\linewidth}
+				\includegraphics[scale=0.25]{images/1/inv_par_3_e.png}
+			\end{subfigure}	
+		\end{figure}
 	\end{frame}
 	
 	\begin{frame}{Results}
 		Step Function Trajectory
-		\centering
-		\includegraphics[scale=0.4]{images/1/step.png}
+		\begin{figure}
+			\begin{subfigure}[b]{0.49\linewidth}
+				\includegraphics[scale=0.25]{images/1/step.png}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.49\linewidth}
+				\includegraphics[scale=0.25]{images/1/step_e.png}
+			\end{subfigure}	
+		\end{figure}
 	\end{frame}
-	\begin{frame}{Results}
-		\centering
-		Error in trajectory execution
-		\includegraphics[scale=0.4]{images/1/step_e.png}
-	\end{frame}
+
 		
 	\begin{frame}{Results}
-		\centering
-		Square Wave trajectory
-		\includegraphics[scale=0.4]{images/1/square.png}
+		\begin{figure}
+			\begin{subfigure}[b]{0.49\linewidth}
+				\includegraphics[scale=0.25]{images/1/square.png}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.49\linewidth}
+				\includegraphics[scale=0.25]{images/1/square_e.png}
+			\end{subfigure}	
+		\end{figure}
 	\end{frame}
-	\begin{frame}{Results}
-		\centering
-		Error in trajectory execution
-		\includegraphics[scale=0.4]{images/1/square_e.png}
-	\end{frame}
+
 		
 	\begin{frame}{Results}
-		\centering
-		Inverse Parabolic Trajectory with whole body motion control
-		\includegraphics[scale=0.4]{images/2/inv_par.png}
+		\begin{figure}
+			\begin{subfigure}[b]{0.49\linewidth}
+				\includegraphics[scale=0.25]{images/2/inv_par.png}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.49\linewidth}
+				\includegraphics[scale=0.25]{images/2/inv_par_e.png}
+			\end{subfigure}	
+		\end{figure}
 	\end{frame}
 	
-	\begin{frame}{Results}
-		\centering
-		Error in trajectory execution
-		\includegraphics[scale=0.4]{images/2/inv_par_e.png}
-	\end{frame}
 	
 	\begin{frame}{Results}
-		\centering
-		Square Wave Trajectory with whole body motion control
-		\includegraphics[scale=0.4]{images/2/square.png}
+		\begin{figure}
+			\begin{subfigure}[b]{0.49\linewidth}
+				\includegraphics[scale=0.25]{images/2/square.png}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.49\linewidth}
+				\includegraphics[scale=0.25]{images/2/square_e.png}
+			\end{subfigure}	
+		\end{figure}
 	\end{frame}
-	\begin{frame}{Results}
-		\centering
-		Error in trajectory execution
-		\includegraphics[scale=0.4]{images/2/square_e.png}
-	\end{frame}
-	
+
 	
 	\begin{frame}{Results}
 		\centering
@@ -310,15 +340,14 @@
 		\includegraphics[scale=0.4]{images/HSR_3/sequence.png}
 	\end{frame}
 	\begin{frame}{Results}
-		\centering
-		Error in trajectory execution
-		\includegraphics[scale=0.4]{images/HSR_3/sequence_0_e.png}
-	\end{frame}
-
-	\begin{frame}{Results}
-		\centering
-		Error in trajectory execution
-		\includegraphics[scale=0.4]{images/HSR_3/sequence_1_e.png}
+		\begin{figure}
+			\begin{subfigure}[b]{0.49\linewidth}
+				\includegraphics[scale=0.25]{images/HSR_3/sequence_0_e.png}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.49\linewidth}
+				\includegraphics[scale=0.25]{images/HSR_3/sequence_1_e.png}
+			\end{subfigure}	
+		\end{figure}
 	\end{frame}
 
 	\begin{frame}{Conclusion}
@@ -331,5 +360,8 @@
 		\item Integration into current software solution for manipulation for Toyota HSR (replacing MoveIt!).
 	  	\end{itemize}
 	\end{frame}
-
+\addcontentsline{toc}{chapter}{References}
+\bibliographystyle{plain} % Use the plainnat bibliography style
+\bibliography{bibliography} % Use the bibliography.bib file as the source of references
 \end{document}
+
